@@ -140,13 +140,16 @@ int main() {
 	{
 		ready = true;
 	}
+
 	conVar.notify_one();
+
+	{
+		std::unique_lock<std::mutex> lock(*mainMutex);
+		conVar.wait(lock, [] {return ready; });
+	}
 
 	results.join();
 	resultsSecondChance.join();
-
-	std::unique_lock<std::mutex> lock(*mainMutex);
-	conVar.wait(lock, [] {return ready; });
 
 	printResults();
 
