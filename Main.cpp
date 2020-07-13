@@ -155,7 +155,9 @@ int main() {
 
 	delete generatedNumbersPlayer;
 	delete drawnNumbers;
-
+	delete mutex;
+	delete mainMutex;
+	
 	system("pause");
 
 	return 0;
